@@ -1,0 +1,132 @@
+/排序 
+bubbleSort(int arr[], int n )
+{
+	bool swapped = true;
+	int j = 0;
+	int tmp;
+	while(swapped ) {
+		swapped = false;
+		j++;
+		//每次都会有一个定型(最后一个，最大的一个)，在这里是最大的一个。所以n-j
+		for(int i =0; i < n-j; i++){
+			if(arr[i] < arr[i+1]){
+			tmp = arr[i];
+			arr[i] = arr[i+1];
+			arr[i+1] = tmp;
+			swapped =true;
+			}
+		}
+		
+	
+	}
+
+}
+
+
+quick_sort
+
+void quickSort(int arr[], int left, int right) {
+
+      int i = left, j = right;
+
+      int tmp;
+
+      int pivot = arr[(left + right) / 2];
+
+ 
+
+      /* partition */
+
+      while (i <= j) {
+
+            while (arr[i] < pivot)
+
+                  i++;
+
+            while (arr[j] > pivot)
+
+                  j--;
+			//由于还没到下次判断 ，所以还是要检测范围。
+            if (i <= j) {
+
+                  tmp = arr[i];
+
+                  arr[i] = arr[j];
+
+                  arr[j] = tmp;
+
+                  i++;
+
+                  j--;
+
+            }
+
+      };
+
+ 
+
+      /* recursion */
+
+      if (left < j)
+
+            quickSort(arr, left, j);
+
+      if (i < right)
+
+            quickSort(arr, i, right);
+
+}
+
+
+
+void selectionSort(int arr[], int n) {
+
+      int i, j, minIndex, tmp;    
+
+      for (i = 0; i < n - 1; i++) {
+
+            minIndex = i;
+
+            for (j = i + 1; j < n; j++)//两具index都在变化 
+
+                  if (arr[j] < arr[minIndex])
+
+                        minIndex = j;
+
+            if (minIndex != i) { //出来了并不确定是否是这样的。找到了更小的值 
+
+                  tmp = arr[i];
+
+                  arr[i] = arr[minIndex];
+
+                  arr[minIndex] = tmp;  /找到了最小的值放在最前面，初始的地址进一。
+				  
+
+            }
+
+      }
+
+}
+
+
+
+
+void insertsort(int *arr, int len ){
+
+	int temp;
+	int len = len ;
+	int j =0;// 避免重复地定义 int j ;
+	for(int i =1; i<len ; i++ )
+	{
+		j = i ;
+		
+		while( j> 0 && arr[j-1] > arr[j] ){
+		
+				temp = arr[j];
+				arr[j] =arr[j-1];
+				arr[j -1] =temp ;
+				j--;
+		}
+	
+	}
+}	
