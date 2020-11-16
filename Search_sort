@@ -15,11 +15,8 @@ bubbleSort(int arr[], int n )
 			arr[i+1] = tmp;
 			swapped =true;
 			}
-		}
-		
-	
+		}	
 	}
-
 }
 
 
@@ -28,105 +25,103 @@ quick_sort
 void quickSort(int arr[], int left, int right) {
 
       int i = left, j = right;
-
       int tmp;
-
       int pivot = arr[(left + right) / 2];
-
- 
-
       /* partition */
-
       while (i <= j) {
-
             while (arr[i] < pivot)
-
                   i++;
-
             while (arr[j] > pivot)
-
                   j--;
 			//由于还没到下次判断 ，所以还是要检测范围。
             if (i <= j) {
-
                   tmp = arr[i];
-
                   arr[i] = arr[j];
-
                   arr[j] = tmp;
-
                   i++;
-
                   j--;
-
-            }
-
+		  }
       };
-
- 
-
       /* recursion */
-
       if (left < j)
-
             quickSort(arr, left, j);
-
       if (i < right)
-
             quickSort(arr, i, right);
-
 }
 
 
 
 void selectionSort(int arr[], int n) {
-
       int i, j, minIndex, tmp;    
-
       for (i = 0; i < n - 1; i++) {
-
             minIndex = i;
-
             for (j = i + 1; j < n; j++)//两具index都在变化 
-
                   if (arr[j] < arr[minIndex])
-
                         minIndex = j;
-
             if (minIndex != i) { //出来了并不确定是否是这样的。找到了更小的值 
-
                   tmp = arr[i];
-
                   arr[i] = arr[minIndex];
-
-                  arr[minIndex] = tmp;  /找到了最小的值放在最前面，初始的地址进一。
-				  
+                  arr[minIndex] = tmp;  /找到了最小的值放在最前面，初始的地址进一。			  
 
             }
-
       }
-
 }
 
 
-
-
 void insertsort(int *arr, int len ){
-
 	int temp;
 	int len = len ;
 	int j =0;// 避免重复地定义 int j ;
 	for(int i =1; i<len ; i++ )
 	{
-		j = i ;
-		
+		j = i ;		
 		while( j> 0 && arr[j-1] > arr[j] ){
 		
 				temp = arr[j];
 				arr[j] =arr[j-1];
 				arr[j -1] =temp ;
 				j--;
-		}
-	
+		}	
 	}
 }	
+
+
+//迭代版本
+long long Fibonacci(unsigned n)
+{
+    int result[2] = {0, 1};
+    
+    if(n < 2){
+        return result[n];
+    }
+    
+    long long  fibNMinusOne = 1;
+    long long  fibNMinusTwo = 0;
+    
+    long long  fibN = 0;
+    
+    for(unsigned int i = 2; i <= n; ++ i){
+        
+        fibN = fibNMinusOne + fibNMinusTwo;
+        
+        fibNMinusTwo = fibNMinusOne;
+        fibNMinusOne = fibN;
+    }
+    
+    return fibN;
+}
+Java// 递归版本
+public static int Fibonacci( int n ){
+
+    if( n==0 || n==1 ){
+         return 1;
+    }
+    else if(n>1){
+
+        return Fibonacci(n-1)+Fibonacci(n-2);
+    }
+    else{
+    
+        return 0;
+    }
+}
