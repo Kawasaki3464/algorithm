@@ -125,3 +125,91 @@ public static int Fibonacci( int n ){
         return 0;
     }
 }
+//两分法，得有序
+int binarySearch(int arr[], int value, int left, int right) {
+
+      while (left <= right) {
+
+            int middle = (left + right) / 2;
+
+            if (arr[middle] == value)
+
+                  return middle;
+
+            else if (arr[middle] > value)
+
+                  right = middle - 1;
+
+            else
+
+                  left = middle + 1;
+
+      }
+
+      return -1;
+
+}
+
+//归并排序
+
+// m - size of A
+
+// n - size of B
+
+// size of C array must be equal or greater than
+
+// m + n
+
+void merge(int m, int n, int A[], int B[], int C[]) {
+
+      int i, j, k;
+
+      i = 0;
+
+      j = 0;
+
+      k = 0;
+
+      while (i < m && j < n) {
+
+            if (A[i] <= B[j]) {
+
+                  C[k] = A[i];
+
+                  i++;
+
+            } else {
+
+                  C[k] = B[j];
+
+                  j++;
+
+            }
+
+            k++;
+
+      }
+
+      if (i < m) {
+
+            for (int p = i; p < m; p++) {
+
+                  C[k] = A[p];
+
+                  k++;
+
+            }
+
+      } else {
+
+            for (int p = j; p < n; p++) {
+
+                  C[k] = B[p];
+
+                  k++;
+
+            }
+
+      }
+
+}
