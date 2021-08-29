@@ -1,0 +1,104 @@
+// 插入的子节点大于父节点时，此时依次往上换。
+static void heapInsert( int arr[], int index){ // thsi parameter is the index of 
+//insertin position  //额外空间 0;
+    while( arr[index] > arr[(index -1) /2]){ //>>必须是正数。 0和0比较，这并不会越界，0和0比较，但是如果>>会越界。
+        swap( arr, index , (index -1 ) /2  );
+        index = (index -1)/2 ;// 
+    }
+    //出口是头结点不再比结点大，或者自己来到了头结点而且自己也不会比自己大。
+
+}
+// 总结 ： 比根结点大，是往上的， heapInsert
+
+static void heapify（ int arr[], int index,  int heapSize）{//extra space stime  logn
+    //左孩子的下标将是一个判断的依据
+    int left = ( 2 * index) +1;
+    while( left <heapSize) //如果没有左孩子，更别谈右孩子了。
+    {   //两个孩子哪个大，就将孩子的坐标给largest,  
+        //首先确保 右孩子的下标下于heapSize
+        int largest  = left +1 < heapSize && arr[left +1] >arr[left]?
+        left  +1 ：left +1;
+        //父和孩子之间，谁的值最大就把下标给largest
+        largest = arr[largest] > arr[index ] ? largest :index;
+        //有孩子但没有干过我。
+        if(largest == index){
+            break;
+        }
+
+        //较大的孩子和父交换
+        swap( arr, largest , index);
+
+        //往下走 index 又成为最此时的最大，
+        index = largest;
+        //left 又更新为了子孩子，往下走
+        left = 2* index +1;
+
+    }
+    }
+}
+// conclude: 总体坐标是往下走的。因为结点比父结点小，所以往下，heapify。
+
+//如果有个家伙在 i位置处要换一个值 ，则这个值 ，要么Heapinsert,要么heapify。 insrt不成再heapify。
+//就是这两种调整。
+复杂度： 二叉树的高度为logn，移除和插入都是logn。
+
+void heapSort( int arr[]){
+    if( arr == NULL || arr.lenght < 2) return ;
+    //构建堆
+    for( int i =0; i< arr.length ; i++){
+        heapInsrt(arr, i);
+    }
+    //要快速构建 可以
+    for( int i = arr.length -1 ; i ; i--){
+        heapify( arr, 0, i);
+    }
+    //移除堆
+    int heapSize = arr.length;
+    swap( arr, 0, --heapSize);
+    //继续组成大根堆。
+    while( heapSize >0) {
+        heapify( arr, 0, heapSize); //最大的数放在失效处，直到 heapsize =0，就排好序了
+        swap(arr, 0, --heapSize);
+    }//arr是从小到大的了
+
+}
+
+//heapify nlogn   insert   nlogn   加起来还是nlogn ，可以想像成2n的长度，进行排序 。
+
+
+void  heapInsert( int arr[], int index){  //index 或左或右结点。
+    while( arr[ index] >arr[(index -1)/2]){
+        swap( arr, index, (index -1)/2);
+        index = (index -1 )/2;
+    }
+    
+    //the exit is when arr[index ] is larger or index become the head itself.n
+}
+
+
+void heapify( int arr[], int index, int heapSize  ){
+//index 就是父
+    int left= 2* index +1;
+    while ( left < heapSize){
+            // 1 从子结点 中找到最大的， 2 子中最大的和父结点比较。
+            int largest = arr[ left +1 ] >= arr[left]? left :left +1 : left;
+            largest = arr[largest ] >= arr[index] ? largest : index ;
+            if( largest == index )  break; // 如果根结点就是最大的不会找了，
+            swap( arr, largest , index );// 根结点的值换了，往下移了
+            left = 2* index +1 ;//      子结点也往下移了。
+        }
+}
+
+void heapSort(  int arr[]){
+        if(arr == NULL || arr.length < 2 ) return ;
+        int heapSize = arr.length ;
+
+        for(int i = 0; i< heapSize ; i++){
+            heapInsert( arr, i, heapSize);//建堆，其实左右结点并不彼此分大小。
+        }
+        swap( arr, 0 , --heapSize ); //没必要担心Heapsize <2；
+         while( heapSize > 0) {
+            heapify( arr, 0, heapSize ) ; //排序，
+            swap( arr, 0, --heapSize);//交换
+         }
+             }
