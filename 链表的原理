@@ -1,0 +1,24 @@
+删除链表：给定特定的值 ，来删除相应的节点
+1 先得保证找到要删除节点的前一个节点
+2 让上一个节点指向要删除的节点的下一个。
+3 删除相应的节点
+void delNode( Nodes ** head, int key){
+    nodes * pre = nullptr;
+    nodes * tmp = *head;
+    //第一个节点就是找到的节点
+    if( tmp!= nullptr && key == tmp->data){
+        *head = tmp->next;//防止野指针 改变头结点 
+        free(tmp);//释放
+        return ;
+    }//循环找
+    if(nullptr != tmp &&tmp->data != key){
+       tmp = tmp->next;
+    }//找不到
+    if(nullptr == tmp ) {
+     return;
+    }
+    //找到了
+    pre->next = tmp->next;
+    free(tmp)
+    return ;
+}
