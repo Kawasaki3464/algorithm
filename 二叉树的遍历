@@ -1,0 +1,83 @@
+//额外需要一个栈, 
+	1)第次栈中弹出一个节点，记为ucr ，
+	2）打印处理cur
+	3)压栈先右后左（如果有）
+	4）重复上面的过程
+	public static void preOrderUnRecur(Node head) {
+		System.out.print("pre-order: ");
+		if (head != null) {  
+			Stack<Node> stack = new Stack<Node>();
+			stack.add(head);
+			
+			//下面的按照上面的4条规则来
+			while (!stack.isEmpty()) {
+				head = stack.pop();
+				System.out.print(head.value + " ");
+				if (head.right != null) {
+					stack.push(head.right);
+				}
+				if (head.left != null) {
+					stack.push(head.left);
+				}
+			}
+		}
+		System.out.println();
+	}
+  
+  中序
+  中序
+	1) 头不为空，压入，压左边界入栈，如果左边界没了就退出条件，
+	2）弹出就打印，一条左边界没了就开始弹出，打印，对右树同理。
+	3）周而复始
+	
+	public static void inOrderUnRecur(Node head) {
+		System.out.print("in-order: ");
+		if (head != null) {
+			Stack<Node> stack = new Stack<Node>();
+			while (!stack.isEmpty() || head != null) {
+				//这两个if 来回绕，
+				if (head != null) {
+					stack.push(head);
+					head = head.left;
+				} else {
+					head = stack.pop();
+					System.out.print(head.value + " ");
+					head = head.right;
+				}
+			}
+		}
+		System.out.println();
+	}
+  
+  
+  后序
+  
+  需要个辅助栈     第一个栈  头右左   第二个栈 ； 左右头。 这是后序的玩法
+	1）弹cur
+	2) cur放出收栈
+	3）先左后右
+	public static void posOrderUnRecur1(Node head) {
+		System.out.print("pos-order: ");
+		//step1: 压栈准备
+		if (head != null) {
+			Stack<Node> s1 = new Stack<Node>();
+			Stack<Node> s2 = new Stack<Node>();
+			s1.push(head);    //不能在while里空栈弹，要先垫一个
+			while (!s1.isEmpty()) {
+				head = s1.pop();
+				s2.push(head);
+				if (head.left != null) {
+					s1.push(head.left);
+				}
+				if (head.right != null) {
+					s1.push(head.right);
+				}
+			}
+			step2:出栈打印
+			//现在是弹出并打印整个栈了
+			while (!s2.isEmpty()) {
+				System.out.print(s2.pop().value + " ");
+			}
+		}
+		System.out.println();
+	}
