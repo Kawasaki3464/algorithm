@@ -1,0 +1,21 @@
+ int maxDepth(TreeNode* root) {
+        if (root == nullptr) return 0;
+        queue<TreeNode*> Q;
+        Q.push(root);
+        int ans = 0;
+        while (!Q.empty()) {
+            int sz = Q.size();
+            /////每层的节点
+            while (sz > 0) {
+                TreeNode* node = Q.front();Q.pop();
+                if (node->left) Q.push(node->left);
+                if (node->right) Q.push(node->right);
+                sz -= 1;
+            }
+           ////每层的节点 ，过一层就加一个。
+            ans += 1;
+        } 
+        return ans;
+    }
+    
+    层序遍历和先序遍历的区别是，一个是用queue，一个用的是stack。nfc
