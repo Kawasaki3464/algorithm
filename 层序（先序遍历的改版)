@@ -1,0 +1,28 @@
+vector<vector<int>> levelOrder(TreeNode* root) {
+        if( nullptr != root){
+            queue<TreeNode*> stk;
+            stk.push(root) ;
+            vector<vector<int>> res;
+            int levelSize =0;
+            while(!stk.empty()){
+                levelSize =stk.size();
+                res.push_back( vector<int>{});
+                //levelsize从1，到2 ，到4，到8
+                for( int i =1; i<= levelSize ; i++){
+                    root = stk.front();
+                    stk.pop();
+                    res.back().push_back(root->val);
+                    if( root->left != nullptr) {
+                    stk.push( root->left);
+                    }
+                    if(root->right != nullptr){
+                    stk.push(root->right);
+            }
+                }
+            
+        }
+        return res;
+        }        
+        return {};
+
+    }
