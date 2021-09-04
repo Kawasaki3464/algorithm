@@ -1,0 +1,25 @@
+ struct nodes{
+  struct nodes * next;
+  int val ;
+};
+
+
+nodes* returnNth(nodes ** head, int n){
+      if( nullptr == *head) return nullptr;
+      nodes * tmp ;
+      int len =0;
+      while (nullptr !=tmp ){
+          tmp = tmp->next;
+          len++;
+      }
+      //链表的长度小于N
+      if(len <n ){
+        return nullptr;
+     }
+     tmp = head; 
+     //链表的长度大于等于 N;
+     for(int i =0; i< len -n ; i++){
+        tmp =tmp->next;
+      }
+      return tmp ;
+}
