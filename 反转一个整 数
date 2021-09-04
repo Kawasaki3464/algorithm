@@ -1,0 +1,20 @@
+int reverse( int n ){
+  int res ; 
+  while(x != 0){
+    //step1 取尾数
+    int tmp = x%10;
+    //判断是否是正整数的范围  和负数的范围
+     if (res>214748364 || (res==214748364 && tmp>7)) {
+                return 0;
+      }
+            //判断是否 小于 最小32位整数
+      if (res<-214748364 || (res==-214748364 && tmp<-8)) {
+            return 0;
+        }
+    //step2 建立结果 
+    res = res* 10 + tmp;
+    //stp3 取整 
+    x /= 10; 
+   }
+   return res;
+}
