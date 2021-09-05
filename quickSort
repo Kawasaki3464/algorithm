@@ -15,3 +15,45 @@
 3） [i] >num;[i]和>区的前一个交换，>区左扩，i原地不动。
 
 总结 ： 小于区域和大于区域往中间的待定区域进发，最后两者相交。
+
+
+
+
+ublic static void quickSort(int[] arr) {
+		if (arr == null || arr.length < 2) {
+			return;
+		}
+		quickSort(arr, 0, arr.length - 1);
+	}
+
+	public static void quickSort(int[] arr, int l, int r) {
+		if (l < r) {
+			swap(arr, l + (int) (Math.random() * (r - l + 1)), r); //随机选个数，和最右侧的数做交换。使之成为nlogn，概率数学期望的东西 ,因为最右侧的数是作为pivot的
+			int[] p = partition(arr, l, r);//返回的数组长度一定为2，因为返回的是划分“等于区域”的左右边界。
+			quickSort(arr, l, p[0] - 1);// 小于区域的最右侧，
+			quickSort(arr, p[1] + 1, r);//大于边界的最左侧。
+		}
+	}
+
+	public static int[] partition(int[] arr, int l, int r) {//荷兰国旗问题
+		int less = l - 1;//需要返回的两个边界  小于区域的最右侧，
+		int more = r;  //大于区域的最右侧
+		
+		while (l < more) {
+			if (arr[l] < arr[r]) {// arr[r]相当于num, pivot，主轴。  arr[l] 相当于[i]
+				swap(arr, ++less, l++);//小于区域右扩  l为滑杆    1)情况
+			} else if (arr[l] > arr[r]) { // 3）情况
+				swap(arr, --more, l); // 大于区域左扩  l不动，
+				} else {  
+				l++;//等于区域只++    2)情况。
+			}
+		}
+		swap(arr, more, r);//  
+		return new int[] { less + 1, more }; //返回的是等于区域的左边界和右边界。
+	}
+
+	public static void swap(int[] arr, int i, int j) {
+		int tmp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = tmp;
+	}
