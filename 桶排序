@@ -1,0 +1,49 @@
+ static void radixSort(int[] arr) {
+		if (arr == null || arr.length < 2) {
+			return;
+		}
+		radixSort(arr, 0, arr.length - 1, maxbits(arr)); //不是递归，因为这个重载其实没什么区别
+	}
+
+	tatic int maxbits(int[] arr) { //找出最大数， 并算出有多少位十进制 。
+		int max = Integer.MIN_VALUE;
+		for (int i = 0; i < arr.length; i++) {
+			max = Math.max(max, arr[i]);
+		}
+		int res = 0;
+		while (max != 0) {
+			res++;
+			max /= 10;
+		}
+		return res;
+	}
+
+	public static void radixSort(int[] arr, int begin, int end, int digit) {
+		final int radix = 10;              //十进制，最多十个数组
+		int i = 0, j = 0;
+
+		int[] bucket = new int[end - begin + 1];//辅助数组				给定[ 013, 021 ,011, 052, 062]
+		
+    for (int d = 1; d <= digit; d++) {
+			int[] count = new int[radix];//记录词频数
+			for (i = begin; i <= end; i++) { //数组长度， 
+				j = getDigit(arr[i], d);   //取个位数和十位数百位数上的值。
+				count[j]++;					//如果013则个数在 coun[j]上的值就会变成1。count[3] =1, ccout[1] = 2; count[0] =0;count[2] =1
+			  }
+			for (i = 1; i < radix; i++) {
+				count[i] = count[i] + count[i - 1]; //累计小于等于某个数值的个数。变为累计数组桶。
+			}
+			for (i = end; i >= begin; i--) {//入桶，是从右向左的。所以是先入后出的。
+				j = getDigit(arr[i], d);
+				bucket[count[j] - 1] = arr[i]; //入桶时， 相应的累计数减1 ，的位置就是
+				count[j]--;   //频率累计值减一。
+			}
+			for (i = begin, j = 0; i <= end; i++, j++) {
+				arr[i] = bucket[j];        //出桶
+			}
+		}
+	}
+
+	public static int getDigit(int x, int d) {
+		return ((x / ((int) Math.pow(10, d - 1))) % 10);  //10 ^(d-1) %10；  x/(1)%10个位数。 分母是个位数，十位数。，而x是原参数。
+	}
