@@ -1,0 +1,13 @@
+
+queue.add( root);
+while( !queue.empty()){
+    root =    qeueu.top()
+    queue.pop();
+    printf( root->val)
+    if(root->left != nullptr) 
+      queue.push( root->left)
+   if( root->right != nullptr)
+      queue.push(root->right)
+     
+}
+//弹出就打印， 入左再入右， 有点类似后序遍历的压栈的第一步。
