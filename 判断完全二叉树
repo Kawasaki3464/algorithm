@@ -1,2 +1,50 @@
 1） 任一节点有右节点，而没有左节点，则不是完全二叉树
 2）1）为前提， 如果 遇到了第一个左右子不全，后续的全是叶子节点。否则不是完全二叉树。
+
+
+
+public class Code05_IsCBT {
+
+	public static class Node {
+		public int value;
+		public Node left;
+		public Node right;
+
+		public Node(int data) {
+			this.value = data;
+		}
+	}
+1） 任一节点有右节点，而没有左节点，则不是完全二叉树
+2）1）为前提， 如果 遇到了第一个左右子不全，并且后续的全是叶子节点。否则不是完全二叉树。
+
+	public static boolean isCBT(Node head) {
+		if (head == null) {
+			return true;
+		}
+		LinkedList<Node> queue = new LinkedList<>();
+		boolean leaf = false; //是否遇到左右孩子不双全，
+		Node l = null;
+		Node r = null;
+		queue.add(head);
+		while (!queue.isEmpty()) {
+			head = queue.poll();
+			l = head.left;
+			r = head.right;
+			1）有右节点没有左节点，则不为完全二叉树
+			2）在1）的前提下，如果 发现了有不双全的节点后，又发现当前节点还有孩子。
+			if ((leaf && (l != null || r != null)) || (l == null && r != null)) {
+				return false;	2）的情况					1）的情况
+			}
+			if (l != null) {
+				queue.add(l);
+			}
+			if (r != null) {
+				queue.add(r);
+			} else {( r == null || l ==null)
+				leaf = true;  //不双全
+			}
+		}
+		return true;
+	}
+
+}
