@@ -1,0 +1,85 @@
+package class05;
+
+public class Code06_IsBalancedTree {
+
+	public static class Node {
+		public int value;
+		public Node left;
+		public Node right;
+
+		public Node(int data) {
+			this.value = data;
+		}
+	}
+	
+	public static boolean isBalanced(Node head) {
+		return process(head).isBalanced;   //指针.BOOL
+	}
+		
+		//设定的类
+	public static class ReturnType {
+		public boolean isBalanced;
+		public int height;
+			
+		//构造函数
+		public ReturnType(boolean isB, int hei) {
+			isBalanced = isB;
+			height = hei;
+		}
+	}
+
+	public static ReturnType process(Node x) {
+		if (x == null) {  //base　ｃａｓｅ
+			return new ReturnType(true, 0);
+		}
+		ReturnType leftData = process(x.left);
+		ReturnType rightData = process(x.right);
+		
+    //需要返回的信息
+		int height = Math.max(leftData.height, rightData.height);
+		boolean isBalanced = leftData.isBalanced && rightData.isBalanced
+				&& Math.abs(leftData.height - rightData.height) < 2;
+        //返回信息
+		return new ReturnType(isBalanced, height);
+	}
+
+}
+
+
+
+
+//way 2 /   套路，向左右子树要信息，可以用来套树型dp的题目
+
+public static boolean isF( Node head){
+		if( head == null){
+			return true ;
+		}
+		Info data = f( head );
+		return data.nodes == ( 1<< data.height -1 )   // 2^ n -1 
+	
+}
+public static class Info {
+		int height ;
+		int nodes ;
+		
+		Info ( int h , int n){
+			height = h; 
+			nodes = n ;
+		}
+}
+			
+ static Info f ( Node x ){
+	if( x == null )
+	{
+		return new Info ( 0, 0);
+	}
+		 
+	Info leftData = f( x.left ); 
+	Info  rightData = f( x.right); 
+	 
+	int height = Math.max ( leftData.heigth , rightData.height ) +1 ;
+	int nodes = leftData.nodes  + rightData.nodes +1 ;
+	 
+	return new Info ( height , nodes );
+				
+ } 
