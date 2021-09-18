@@ -25,3 +25,50 @@ public static boolean isBalanced(Node head) {
 	}
 
 }
+
+
+//套路做
+public static class ReturnData{
+	public boolean isBST;
+	public int min;
+	public int max ;
+	
+	public ReturnData(boolean is , int mi, int ma){  //需要的3个信息，只需要拆黑盒就行。
+		isBST = is;
+		min = mi;
+		max = ma;
+	}
+}
+public static ReturnData process(Node x ){
+	if( x == null) return null;
+	
+	ReturnData leftData = process(x.left);
+	ReturnData  rightData = process(x.right);
+	
+	int min = x.value;
+	int max = x.value;
+	//需要返回的信息
+	if(leftData != null) {//左树不为空
+		min = min( min , leftData->min);
+		max = max(max, rightData->max);
+	}
+	if(rightData != null) {
+		min = min( min, rightData->min);
+		max = max(max, rightData->max);
+	}
+	
+	//先假定是二叉搜索树
+	bool isBST = true
+	//违规行为。
+	if( leftData != null && (!leftData.isBST || leftData.max >= x.value ){  //左树不为空，但不是二叉树或者 左树的最大值大于等于节点的值 。
+		isBST = false;
+	}
+	if( rightData != null && (!rightData.isBST  || rightData.min <= x.value)){  //左树不为空，但不是二叉树
+		isBST = false;
+	}
+	//不违规的情况，直接返回。
+	return new ReturnData(isBST, min , max );
+	
+	
+}
+
