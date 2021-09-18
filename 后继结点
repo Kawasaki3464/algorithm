@@ -1,0 +1,35 @@
+就是中序遍历的顺序
+
+找x ？ 后继
+
+1）x有右树的时候，，则右子树的左节点一定是后继
+2）x无右树的时候。x
+3）总有没有后继的节点。
+
+
+public static Node getSuccessorNode(Node node) {
+		if (node == null) {
+			return node;
+		}
+		if (node.right != null) {
+			return getLeftMost(node.right);
+		} else {
+			Node parent = node.parent;
+			while (parent != null && parent.left != node) {
+				node = parent;            //node和parent在往上移。
+				parent = node.parent;  
+			}
+			return parent;    
+		}
+	}
+
+	public static Node getLeftMost(Node node) {
+		if (node == null) {
+			return node;
+		}
+		while (node.left != null) {
+			node = node.left;
+		}
+		return node;
+	}
+ 
