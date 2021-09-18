@@ -1,0 +1,59 @@
+public static class Node{
+  public int  value;
+  public Node left;
+  public Node right;
+  
+  public Node(int data){
+    this.value = data;
+  }
+}
+
+//o1 和o2一定属于Head为头的树
+//返回o1 和o2的最低公共祖先
+
+public static Node lca( Node head, Node o1 , Node o2){
+    HashMap< Node, Node > fatherMap ;  //父亲结点的表
+    process(head, fatherMap);    //遍历并放入 fathermap
+    //放入set
+  HashSet<Node> set1 = new HashSet<>();
+  set1.add(o1);
+  Node cur = o1; 
+  while( cur != father.get(cur)){ //谁会等于自己的父亲。  只有根结点 ， 所以不等于时，可以往上走。
+    set1.add(cur);                 // 4 2 1  set1
+    cur = fatherMap.get(cur) ;//记录向上走的位置     
+  }
+  set1.add(head);
+  
+ //让o2 向上, 如果向上的节点，在set1时有，则找到了这个最低公共祖先。
+ while  o2 在set1时， 则
+}
+
+//做一个遍历 
+
+public static void process(Node head, HasMap<Node, Node> fatherMap){
+   //把Map设置好
+   if(head == null) 
+  return ;
+   fatherMap.put(head.left, fatherMap);
+   fatherMap.put(head.right, head);
+   process(head.left, fatherMap);
+   process(head.right, fatherMap);
+  }
+  
+  
+  
+  //巧妙的解法      
+  public static Node lowestAncestor(Node head, Node o1, Node o2) {
+		if (head == null || head == o1 || head == o2) {
+			return head;
+		}
+		Node left = lowestAncestor(head.left, o1, o2);
+		Node right = lowestAncestor(head.right, o1, o2);
+		// nb的代码
+		1）情况分析， 01是02的LCA,  或者 02是o1的LCA. 
+		2) o1和02是分开， 不互为LCA。通过汇聚找到共同的LCA。
+		if (left != null && right != null) {   //在情况1下，永远不可能成立。  //在情况2下简直是Nb.
+			return head;
+		}
+		return left != null ? left : right;
+	}
